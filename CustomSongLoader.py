@@ -8,6 +8,7 @@ import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import shutil
+from tkinter import ttk
 import zipfile
 os.environ['PATH'] += os.pathsep + r"C:\Program Files\WinRAR"
 
@@ -79,12 +80,13 @@ def upload_action(event=None):
 
 # Create the root window
 root = tk.Tk()
-root.title('File Upload')
+root.title('Arty\'s Custom Song Loader')
+root.geometry("400x100")
 
 # Create a button that will call the upload_action function when clicked
-upload_btn = tk.Button(root, text='Upload File', command=upload_action)
+upload_btn = tk.Button(root, text='Upload Files', command=upload_action)
 upload_btn.pack(padx=10,pady=10,expand=True)
-label_text = "Input Pack Archive"
+label_text = "Input Pack Archives"
 success_label = tk.Label(text=label_text)
 success_label.pack(padx=10,pady=10)
 

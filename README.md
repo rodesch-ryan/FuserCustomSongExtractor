@@ -1,5 +1,5 @@
-# FuserCustomSongExtractor
-## Arty's CustomSongExtractor
+# DO NOT USE - Better alternative available
+https://github.com/rodesch-ryan/FuserCustomSongs
 Extract songs super easily with Arty's CustomSongExtractor!
 
 Features:

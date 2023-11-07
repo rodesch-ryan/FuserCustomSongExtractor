@@ -5,10 +5,10 @@ License: Open-Source
 '''
 
 import os
+import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import shutil
-from tkinter import ttk
 import zipfile
 os.environ['PATH'] += os.pathsep + r"C:\Program Files\WinRAR"
 
@@ -60,10 +60,14 @@ def extract_archive(archive_path, output_directory):
     move_files_to_root(output_directory)
 
 def extractToCustoms(dir):
-    extract_archive(dir, f"{__file__}".removesuffix("CustomSongLoader.py")+r"Fuser\Content\Paks\custom_songs")
+    if getattr(sys, 'frozen', False):
+        application_path = os.path.dirname(sys.executable)
+    elif __file__:
+        application_path = os.path.dirname(__file__)
+    extract_archive(dir, application_path+r"\Fuser\Content\Paks\custom_songs")
     try:
-        os.remove(f"{__file__}".removesuffix(f"CustomSongLoader.py")+r"\Fuser\Content\Paks\customSongsUnlocked_P.pak")
-        os.remove(f"{__file__}".removesuffix(f"CustomSongLoader.py")+r"\Fuser\Content\Paks\customSongsUnlocked_P.sig")
+        os.remove(application_path+r"\Fuser\Content\Paks\customSongsUnlocked_P.pak")
+        os.remove(application_path+r"\Fuser\Content\Paks\customSongsUnlocked_P.sig")
     except:
         pass
 
@@ -74,8 +78,8 @@ def upload_action(event=None):
         try:
             extractToCustoms(filename)
         except Exception as e:
-           messagebox.showinfo("Error", f"General error with {filename}, see verbose output")
-           print(e) 
+           messagebox.showinfo("Error", f"General error with {filename}, see verbose output in CMD")
+           print(e)
     success_label.config(text=label_text)
 
 # Create the root window

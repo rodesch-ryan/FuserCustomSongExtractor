@@ -1,6 +1,6 @@
 '''
 Author: Artyom-V2X
-Version: 1
+Version: 2
 License: Open-Source
 '''
 
@@ -11,33 +11,6 @@ from tkinter import filedialog, messagebox
 import shutil
 import zipfile
 os.environ['PATH'] += os.pathsep + r"C:\Program Files\WinRAR"
-
-def move_files_to_root(directory):
-    """
-    Moves all files from subdirectories of 'directory' to the root of 'directory',
-    and then removes the subdirectories.
-
-    :param directory: The root directory to flatten and remove subdirectories from.
-    """
-    for root, dirs, files in os.walk(directory, topdown=False):  # topdown=False is important to traverse from the deepest to the shallowest directories
-        for file in files:
-            # Construct the path to the file and the path to where we want to move it (root of 'directory')
-            file_path = os.path.join(root, file)
-            destination_path = os.path.join(directory, file)
-
-            # Check if the file is not already in the root directory
-            if root != directory:
-                # Move the file
-                shutil.move(file_path, destination_path)
-
-        for dir in dirs:
-            # Construct the path to the directory
-            dir_path = os.path.join(root, dir)
-
-            # Check if the directory is empty before attempting to remove it
-            if not os.listdir(dir_path):
-                # Remove the directory
-                os.rmdir(dir_path)
 
 def extract_archive(archive_path, output_directory):
     global label_text
@@ -55,9 +28,6 @@ def extract_archive(archive_path, output_directory):
     except:
         label_text = "Unsupported archive format or file is not an archive."
         success_label.config(text=label_text)
-    
-    # Now check for any archives in the extracted files and extract them
-    move_files_to_root(output_directory)
 
 def extractToCustoms(dir):
     if getattr(sys, 'frozen', False):
